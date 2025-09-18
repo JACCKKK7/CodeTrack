@@ -1,107 +1,68 @@
-# CodeTrack Clone - Full Stack DSA Practice Platform
+## Quick Start
 
-A full-stack web application that replicates CodeTrack's interface for practicing Data Structures and Algorithms problems. Built with React + TypeScript frontend and Node.js + Express + MongoDB backend.
+### Backend
+```bash
+cd backend
+npm install
+```
 
-## 🌟 Features
+Create `.env`:
+```env
+NODE_ENV=development
+PORT=5000
+MONGODB_URI=<your_mongodb_uri>
+JWT_SECRET=<random_long_string>
+JWT_EXPIRE=7d
+FRONTEND_URL=http://localhost:5173
+# Judge0 (leave key blank to use public CE)
+JUDGE0_BASE=https://ce.judge0.com
+# If using RapidAPI:
+# JUDGE0_BASE=https://judge0-ce.p.rapidapi.com
+# JUDGE0_KEY=<your_rapidapi_key>
+```
 
-- **Freemium Model**: 5 free problems in Arrays & Hashing and Two Pointers categories
-- **Pro Access (No Payments in Demo)**: Unlock all problems via server-side pro flag (no Stripe)
-- **User Authentication**: JWT-based login/register system
-- **Problem Tracking**: Mark problems as solved, star favorites
-- **18 DSA Categories**: Comprehensive coverage of algorithm topics
-- **Responsive Design**: Mobile-friendly CodeTrack-inspired interface
-- **MongoDB Database**: Scalable data storage for users and problems
+Run:
+```bash
+npm run dev
+```
+Backend: http://localhost:5000
 
-## 🚀 Quick Start
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Frontend: http://localhost:5173
 
-### Prerequisites
+Open the app, register, pick a problem, write code, Run (example tests) or Submit (stores result + code in Mongo).
 
-- Node.js (v16 or higher)
-- MongoDB (local installation or MongoDB Atlas)
-- npm or yarn
+## Judge0 Notes
+- Without JUDGE0_KEY it uses the public CE endpoint (rate limits apply).
+- With JUDGE0_KEY + RapidAPI base it uses authenticated quota.
+- Only Python & Java currently mapped (extend LANGUAGE_MAP to add more).
 
-### Backend Setup
+## Folder Snapshot
+```
+backend/src
+  controllers/ (auth, problems, submissions)
+  middleware/auth.ts
+  models/ (User, Submission)
+  utils/fsProblems.ts
+frontend/src
+  pages/ (Problems, Problem)
+  components/
+```
 
-1. **Navigate to backend directory:**
-   ```bash
-   cd backend
-   ```
+## Adding a Problem (for contributors)
+1. Create a new folder or file in the backend `problems` directory following existing slug conventions.  
+2. Provide metadata (title, difficulty, category, order, examples, etc.) in the same structure as existing problems.  
+3. Restart the backend; it rescans problems on startup.  
+4. Verify it appears in the Problems list and examples run via “Run”.  
+5. Submit a PR including the new problem file only (no `.env`, no build artifacts).
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+## Environment Security
+Never commit real `.env` values (already ignored by `.gitignore`).
 
-3. **Environment setup:**
-   Create `.env` file with:
-   ```env
-   NODE_ENV=development
-   PORT=5000
-   MONGODB_URI=mongodb://localhost:27017/CodeTrack-clone
-   JWT_SECRET=your-super-secret-jwt-key
-   JWT_EXPIRE=7d
-   FRONTEND_URL=http://localhost:5173
-   ```
-
-4. **Start MongoDB:**
-   ```bash
-   # If using local MongoDB
-   sudo systemctl start mongod
-   ```
-
-5. **Seed the database:**
-   ```bash
-   npm run seed
-   ```
-
-6. **Start the backend server:**
-   ```bash
-   npm run dev
-   ```
-
-   Backend will run on `http://localhost:5000`
-
-### Frontend Setup
-
-1. **Navigate to frontend directory:**
-   ```bash
-   cd frontend
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Create environment file:**
-   ```bash
-   echo "VITE_API_URL=http://localhost:5000/api" > .env
-   ```
-
-4. **Start the frontend server:**
-   ```bash
-   npm run dev
-   ```
-
-   Frontend will run on `http://localhost:5173`
-
-## 🎯 Free vs Pro Features
-
-### Free Account
-- ✅ Access to Arrays & Hashing (5 problems)
-- ✅ Access to Two Pointers (5 problems)
-- ✅ Problem tracking and starring
-- ✅ Progress statistics
-
-### Pro Account (Demo)
-- ✅ All free features
-- ✅ Access to all 18 categories
-- ✅ All coding problems
-- ✅ Video explanations
-
-Note: Payments are disabled in this demo. Pro can be toggled via the backend `updateProStatus` endpoint.
-
-## 🛠️ Technologies
-
-**Frontend:** React 18, TypeScript, Vite, Tailwind CSS
-**Backend:** Node.js, Express, MongoDB, JWT Authentication
+## License
+MIT (add a LICENSE file if distributing).

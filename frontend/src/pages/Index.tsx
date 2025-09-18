@@ -33,9 +33,9 @@ const Index = () => {
 
           <div className="flex items-center space-x-4">
             {userIsPro ? (
-              <Badge className="bg-orange-500 text-white px-3 py-1">
-                <Crown className="h-4 w-4 mr-1" />
-                Pro
+              <Badge className="bg-500 text-white px-3 py-1">
+                <Donut className="h-4 w-4 mr-1" />
+                Donate
               </Badge>
             ) : (
               <Button 
